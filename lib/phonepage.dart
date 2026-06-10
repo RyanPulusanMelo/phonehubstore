@@ -26,11 +26,20 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
   void _showVariantSelector() {
     String? selectedVariant;
 
+    int getVariantPrice(String? variant) {
+      if (variant == null) return widget.phone['price'] as int;
+      final prices = widget.phone['variantPrices'];
+      if (prices != null && prices[variant] != null) return prices[variant] as int;
+      return widget.phone['price'] as int;
+    }
+
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext modalContext) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setModalState) {
+            final displayedPrice = getVariantPrice(selectedVariant);
+
             return Container(
               height: MediaQuery.of(context).size.height * 0.7,
               decoration: BoxDecoration(
@@ -49,14 +58,13 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
-
                     Expanded(
                       child: SingleChildScrollView(
                         padding: EdgeInsets.symmetric(horizontal: 24),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Phone info
+                            // Phone info header
                             Row(
                               children: [
                                 Container(
@@ -65,21 +73,17 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: _border),
-                                    color: widget.isDark
-                                        ? Color(0xFF1A1A2E)
-                                        : Color(0xFFEEF2FF),
+                                    color: widget.isDark ? Color(0xFF1A1A2E) : Color(0xFFEEF2FF),
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: Padding(
                                       padding: EdgeInsets.all(6),
-                                      child: Image.network(
+                                      child: Image.asset(
                                         widget.phone['image'],
                                         fit: BoxFit.contain,
                                         errorBuilder: (c, e, s) => Center(
-                                          child: Text('📱',
-                                              style:
-                                              TextStyle(fontSize: 32)),
+                                          child: Text('📱', style: TextStyle(fontSize: 32)),
                                         ),
                                       ),
                                     ),
@@ -88,71 +92,64 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                                 SizedBox(width: 16),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         widget.phone['name'],
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w800,
-                                          color: _text,
-                                        ),
+                                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: _text),
                                         maxLines: 2,
                                       ),
                                       SizedBox(height: 4),
-                                      Text(
-                                        widget.phone['brand'],
-                                        style: TextStyle(
-                                            fontSize: 13, color: _subtext),
-                                      ),
+                                      Text(widget.phone['brand'], style: TextStyle(fontSize: 13, color: _subtext)),
                                       SizedBox(height: 8),
-                                      Text(
-                                        '₱${widget.phone['price']}',
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w900,
-                                          color: Color(0xFF2563EB),
-                                        ),
+                                      // Price updates live as variant is selected
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            '\u20b1$displayedPrice',
+                                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Color(0xFF2563EB)),
+                                          ),
+                                          if (selectedVariant != null) ...[
+                                            SizedBox(width: 6),
+                                            Padding(
+                                              padding: EdgeInsets.only(bottom: 3),
+                                              child: Text(
+                                                selectedVariant!,
+                                                style: TextStyle(fontSize: 12, color: _subtext, fontWeight: FontWeight.w600),
+                                              ),
+                                            ),
+                                          ],
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
-
                             SizedBox(height: 28),
-
                             Text(
                               'SELECT STORAGE',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 2,
-                                color: _subtext,
-                              ),
+                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, letterSpacing: 2, color: _subtext),
                             ),
                             SizedBox(height: 14),
-
                             ...widget.phone['variants'].map<Widget>((variant) {
                               final isSelected = selectedVariant == variant;
+                              final variantCost = getVariantPrice(variant as String);
+                              final basePrice = widget.phone['price'] as int;
+                              final priceDiff = variantCost - basePrice;
                               return GestureDetector(
-                                onTap: () =>
-                                    setModalState(() => selectedVariant = variant),
+                                onTap: () => setModalState(() => selectedVariant = variant),
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 10),
                                   padding: EdgeInsets.all(16),
                                   decoration: BoxDecoration(
                                     color: isSelected
                                         ? Color(0xFF2563EB).withOpacity(0.1)
-                                        : widget.isDark
-                                        ? Color(0xFF0A0A0F)
-                                        : Color(0xFFF0F4FF),
+                                        : widget.isDark ? Color(0xFF0A0A0F) : Color(0xFFF0F4FF),
                                     borderRadius: BorderRadius.circular(14),
                                     border: Border.all(
-                                      color: isSelected
-                                          ? Color(0xFF2563EB)
-                                          : _border,
+                                      color: isSelected ? Color(0xFF2563EB) : _border,
                                       width: isSelected ? 1.5 : 1,
                                     ),
                                   ),
@@ -162,62 +159,56 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                                         width: 40,
                                         height: 40,
                                         decoration: BoxDecoration(
-                                          color: isSelected
-                                              ? Color(0xFF2563EB)
-                                              .withOpacity(0.15)
-                                              : _border.withOpacity(0.3),
-                                          borderRadius:
-                                          BorderRadius.circular(10),
+                                          color: isSelected ? Color(0xFF2563EB).withOpacity(0.15) : _border.withOpacity(0.3),
+                                          borderRadius: BorderRadius.circular(10),
                                         ),
-                                        child: Center(
-                                          child: Text('💾',
-                                              style:
-                                              TextStyle(fontSize: 18)),
-                                        ),
+                                        child: Center(child: Text('💾', style: TextStyle(fontSize: 18))),
                                       ),
                                       SizedBox(width: 14),
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               variant,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w700,
-                                                color: isSelected
-                                                    ? Color(0xFF2563EB)
-                                                    : _text,
-                                              ),
+                                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700,
+                                                  color: isSelected ? Color(0xFF2563EB) : _text),
                                             ),
-                                            Text(
-                                              'Internal storage',
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: _subtext),
-                                            ),
+                                            Text('Internal storage', style: TextStyle(fontSize: 12, color: _subtext)),
                                           ],
                                         ),
                                       ),
+                                      // Per-variant price column
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            '\u20b1$variantCost',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w800,
+                                              color: isSelected ? Color(0xFF2563EB) : _text,
+                                            ),
+                                          ),
+                                          Text(
+                                            priceDiff == 0 ? 'Base' : '+\u20b1$priceDiff',
+                                            style: TextStyle(fontSize: 11, color: _subtext),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(width: 8),
                                       if (isSelected)
-                                        Icon(
-                                            CupertinoIcons
-                                                .checkmark_circle_fill,
-                                            color: Color(0xFF2563EB),
-                                            size: 20),
+                                        Icon(CupertinoIcons.checkmark_circle_fill, color: Color(0xFF2563EB), size: 20),
                                     ],
                                   ),
                                 ),
                               );
                             }).toList(),
-
                             SizedBox(height: 20),
                           ],
                         ),
                       ),
                     ),
-
                     Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
@@ -234,40 +225,30 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                                 context: context,
                                 builder: (context) => CupertinoAlertDialog(
                                   title: Text('Select Storage'),
-                                  content: Text(
-                                      'Please choose a storage variant to continue.'),
+                                  content: Text('Please choose a storage variant to continue.'),
                                   actions: [
-                                    CupertinoDialogAction(
-                                        child: Text('OK'),
-                                        onPressed: () =>
-                                            Navigator.pop(context)),
+                                    CupertinoDialogAction(child: Text('OK'), onPressed: () => Navigator.pop(context)),
                                   ],
                                 ),
                               );
                               return;
                             }
-
+                            final cartPrice = getVariantPrice(selectedVariant);
                             widget.onAddToCart({
                               ...widget.phone,
+                              'price': cartPrice,
                               'selectedVariant': selectedVariant,
                               'selectedColor': selectedVariant,
                             });
-
                             Navigator.pop(modalContext);
                             Navigator.pop(this.context);
-
                             showCupertinoDialog(
                               context: this.context,
                               builder: (context) => CupertinoAlertDialog(
-                                title: Text('Added to Cart 📱'),
-                                content: Text(
-                                    '${widget.phone['name']} ($selectedVariant) added to your cart!'),
+                                title: Text('Added to Cart \ud83d\udcf1'),
+                                content: Text('${widget.phone['name']} ($selectedVariant) — \u20b1$cartPrice added to your cart!'),
                                 actions: [
-                                  CupertinoDialogAction(
-                                    child: Text('Keep Browsing'),
-                                    onPressed: () =>
-                                        Navigator.pop(context),
-                                  ),
+                                  CupertinoDialogAction(child: Text('Keep Browsing'), onPressed: () => Navigator.pop(context)),
                                 ],
                               ),
                             );
@@ -276,36 +257,19 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                             width: double.infinity,
                             height: 54,
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xFF1E40AF),
-                                  Color(0xFF2563EB)
-                                ],
-                              ),
+                              gradient: LinearGradient(colors: [Color(0xFF1E40AF), Color(0xFF2563EB)]),
                               borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xFF2563EB).withOpacity(0.4),
-                                  blurRadius: 12,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
+                              boxShadow: [BoxShadow(color: Color(0xFF2563EB).withOpacity(0.4), blurRadius: 12, offset: Offset(0, 4))],
                             ),
                             child: Center(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(CupertinoIcons.cart_fill,
-                                      color: Color(0xFFFFFFFF), size: 18),
+                                  Icon(CupertinoIcons.cart_fill, color: Color(0xFFFFFFFF), size: 18),
                                   SizedBox(width: 10),
                                   Text(
-                                    'ADD TO CART',
-                                    style: TextStyle(
-                                      color: Color(0xFFFFFFFF),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w800,
-                                      letterSpacing: 1.5,
-                                    ),
+                                    selectedVariant == null ? 'ADD TO CART' : 'ADD TO CART  \u20b1$displayedPrice',
+                                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 15, fontWeight: FontWeight.w800, letterSpacing: 1.5),
                                   ),
                                 ],
                               ),
@@ -348,7 +312,7 @@ class _PhoneDetailPageState extends State<PhoneDetailPage> {
                           padding: EdgeInsets.only(top: 40, bottom: 20),
                           child: Container(
                             width: 220,
-                            child: Image.network(
+                            child: Image.asset(
                               phone['image'],
                               fit: BoxFit.contain,
                               errorBuilder: (c, e, s) => Center(

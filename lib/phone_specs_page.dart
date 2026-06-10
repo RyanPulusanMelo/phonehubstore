@@ -211,7 +211,7 @@ class _PhoneSpecsPageState extends State<PhoneSpecsPage> {
                       borderRadius: BorderRadius.circular(8),
                       child: Padding(
                         padding: EdgeInsets.all(4),
-                        child: Image.network(
+                        child: Image.asset(
                           phone['image'],
                           fit: BoxFit.contain,
                           errorBuilder: (c, e, s) => Center(

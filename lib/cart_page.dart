@@ -69,17 +69,31 @@ class _CartPageState extends State<CartPage> {
     String auth = 'Basic ' + base64Encode(utf8.encode('$key:'));
 
     try {
+      // E-wallets (GCash, Maya, ShopeePay) have a max limit of \u20b1150,000.
+      // For orders above that, restrict to card/bank transfer only.
+      final bool overEwalletLimit = price > 150000;
+      final Map<String, dynamic> invoiceBody = {
+        "external_id":
+        "phonehub_" + DateTime.now().millisecondsSinceEpoch.toString(),
+        "amount": price,
+        if (overEwalletLimit)
+          "payment_methods": [
+            "CREDIT_CARD",
+            "BRI_VA",
+            "BNI_VA",
+            "MANDIRI_VA",
+            "PERMATA_VA",
+            "BCA_VA",
+          ],
+      };
+
       final response = await http.post(
         Uri.parse(url),
         headers: {
           "Authorization": auth,
           "Content-Type": "application/json"
         },
-        body: jsonEncode({
-          "external_id":
-          "phonehub_" + DateTime.now().millisecondsSinceEpoch.toString(),
-          "amount": price
-        }),
+        body: jsonEncode(invoiceBody),
       );
 
       final data = jsonDecode(response.body);
@@ -325,7 +339,34 @@ class _CartPageState extends State<CartPage> {
                     ),
                     CupertinoButton(
                       padding: EdgeInsets.zero,
-                      onPressed: () => payNow(totalAmount),
+                      onPressed: () {
+                        if (totalAmount > 150000) {
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (context) => CupertinoAlertDialog(
+                              title: Text('Payment Note'),
+                              content: Text(
+                                  'Orders above \u20b1150,000 cannot be paid via e-wallet (GCash/Maya) due to provider limits.\n\nCredit card or bank transfer will be available at checkout.'),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: Text('Continue'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    payNow(totalAmount);
+                                  },
+                                ),
+                                CupertinoDialogAction(
+                                  child: Text('Cancel'),
+                                  isDestructiveAction: true,
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          payNow(totalAmount);
+                        }
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 32, vertical: 16),
@@ -401,7 +442,7 @@ class _CartPageState extends State<CartPage> {
               borderRadius: BorderRadius.circular(10),
               child: Padding(
                 padding: EdgeInsets.all(4),
-                child: Image.network(
+                child: Image.asset(
                   item['image'],
                   fit: BoxFit.contain,
                   errorBuilder: (context, error, stackTrace) => Center(

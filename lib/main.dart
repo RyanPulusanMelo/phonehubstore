@@ -130,8 +130,32 @@ class _LoginPageState extends State<LoginPage> {
           CupertinoDialogAction(
             isDestructiveAction: true,
             child: Text('Reset'),
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context);
+              final bool biometricsEnabled =
+              box.get("biometrics", defaultValue: false);
+              if (biometricsEnabled) {
+                try {
+                  final bool canAuth = await auth.canCheckBiometrics ||
+                      await auth.isDeviceSupported();
+                  if (!canAuth) {
+                    setState(() =>
+                    errorMsg = "Biometrics not available on this device");
+                    return;
+                  }
+                  final bool didAuth = await auth.authenticate(
+                    localizedReason:
+                    'Authenticate to reset your PHONE HUB account',
+                  );
+                  if (!didAuth) {
+                    setState(() => errorMsg = "Authentication failed");
+                    return;
+                  }
+                } catch (e) {
+                  setState(() => errorMsg = "Biometric error: ${e.toString()}");
+                  return;
+                }
+              }
               box.delete("username");
               box.delete("password");
               box.delete("email");
@@ -141,7 +165,11 @@ class _LoginPageState extends State<LoginPage> {
               box.delete("orderHistory");
               box.delete("accountCreated");
               box.put("isDark", false);
-              setState(() {});
+              Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => const SignupPage()),
+                    (route) => false,
+              );
             },
           ),
         ],

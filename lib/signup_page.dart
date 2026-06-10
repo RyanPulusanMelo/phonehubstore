@@ -140,10 +140,17 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                       child: Center(
-                        child: Text('📱', style: TextStyle(fontSize: 38)),
+                        child: Image.asset(
+                          'assets/logo.png',
+                          width: 78,
+                          height: 78,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
+
                     SizedBox(height: 16),
+
                     Text(
                       'PHONE HUB',
                       style: TextStyle(
@@ -153,7 +160,9 @@ class _SignupPageState extends State<SignupPage> {
                         color: _text,
                       ),
                     ),
+
                     SizedBox(height: 4),
+
                     Text(
                       'Your premium phone store',
                       style: TextStyle(fontSize: 13, color: _subtext),
@@ -283,20 +292,7 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(height: 20),
 
               // Already have account
-              Center(
-                child: CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  child: Text(
-                    'Already have an account? Sign In',
-                    style: TextStyle(
-                      color: Color(0xFF2563EB),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
+
 
               SizedBox(height: 40),
             ],
