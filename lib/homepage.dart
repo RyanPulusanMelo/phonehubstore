@@ -34,7 +34,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Apple',
       'price': 74999,
       'category': 'Apple',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/apple-iphone-16-pro-max.jpg',
+      'image': 'assets/apple-iphone-16-pro-max.jpg',
       'description': 'The most powerful iPhone ever. Featuring the A18 Pro chip, a stunning 6.9" Super Retina XDR display with ProMotion, and the all-new Camera Control.',
       'variants': ['256GB', '512GB', '1TB'],
       'specs': ['Apple', 'iOS 18', '6.9 inch OLED'],
@@ -53,7 +53,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Apple',
       'price': 54999,
       'category': 'Apple',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/apple-iphone-16.jpg',
+      'image': 'assets/apple-iphone-16.jpg',
       'description': 'iPhone 16. Built for Apple Intelligence. With the all-new A18 chip, Camera Control, and a beautiful 6.1-inch display.',
       'variants': ['128GB', '256GB', '512GB'],
       'specs': ['Apple', 'iOS 18', '6.1 inch OLED'],
@@ -72,7 +72,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Samsung',
       'price': 79999,
       'category': 'Samsung',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/samsung-galaxy-s25-ultra.jpg',
+      'image': 'assets/samsung-galaxy-s25-ultra-sm-s938.jpg',
       'description': 'Galaxy AI is here. The Galaxy S25 Ultra with Snapdragon 8 Elite and the iconic built-in S Pen redefines what a smartphone can do.',
       'variants': ['256GB', '512GB', '1TB'],
       'specs': ['Samsung', 'Android 15', '6.9 inch Dynamic AMOLED'],
@@ -91,7 +91,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Samsung',
       'price': 59999,
       'category': 'Samsung',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/samsung-galaxy-s25+.jpg',
+      'image': 'assets/samsung-galaxy-s25-plus-sm-s936.jpg',
       'description': 'Galaxy S25+ with Snapdragon 8 Elite, 6.7" QHD+ Dynamic AMOLED 2X display and Galaxy AI built in.',
       'variants': ['256GB', '512GB'],
       'specs': ['Samsung', 'Android 15', '6.7 inch Dynamic AMOLED'],
@@ -110,7 +110,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Google',
       'price': 62999,
       'category': 'Google',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/google-pixel-9-pro-xl.jpg',
+      'image': 'assets/google-pixel-9-pro-xl-.jpg',
       'description': 'The most pro Pixel ever. Google\'s most powerful chip, the Tensor G4, with a stunning 6.8" display and the best Google AI on any phone.',
       'variants': ['256GB', '512GB', '1TB'],
       'specs': ['Google', 'Android 15', '6.8 inch LTPO OLED'],
@@ -129,7 +129,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Xiaomi',
       'price': 49999,
       'category': 'Xiaomi',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/xiaomi-14-ultra.jpg',
+      'image': 'assets/xiaomi-14-ultra-new.jpg',
       'description': 'Leica photography redefined. The Xiaomi 14 Ultra brings professional-grade photography to your pocket with Snapdragon 8 Gen 3.',
       'variants': ['256GB', '512GB', '1TB'],
       'specs': ['Xiaomi', 'Android 14', '6.73 inch LTPO AMOLED'],
@@ -148,7 +148,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'OPPO',
       'price': 44999,
       'category': 'OPPO',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/oppo-find-x8-pro.jpg',
+      'image': 'assets/oppo-find-x8-pro.jpg',
       'description': 'OPPO Find X8 Pro with Hasselblad cameras and Dimensity 9400. A masterpiece of design and imaging.',
       'variants': ['256GB', '512GB'],
       'specs': ['OPPO', 'Android 15', '6.78 inch LTPO AMOLED'],
@@ -167,7 +167,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'OnePlus',
       'price': 39999,
       'category': 'OnePlus',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/oneplus-13.jpg',
+      'image': 'assets/oneplus-13.jpg',
       'description': 'OnePlus 13. Hasselblad cameras, 100W SUPERVOOC fast charging, and Snapdragon 8 Elite. Never Settle.',
       'variants': ['256GB', '512GB', '1TB'],
       'specs': ['OnePlus', 'Android 15', '6.82 inch LTPO AMOLED'],
@@ -186,7 +186,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Realme',
       'price': 29999,
       'category': 'Realme',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/realme-gt-7-pro.jpg',
+      'image': 'assets/realme-gt7-pro.jpg',
       'description': 'Realme GT 7 Pro. Snapdragon 8 Elite, 120W charging, and innovative temperature sensors. Flagship power, accessible price.',
       'variants': ['256GB', '512GB'],
       'specs': ['Realme', 'Android 15', '6.78 inch LTPO AMOLED'],
@@ -205,7 +205,7 @@ class _HomepageState extends State<Homepage> {
       'brand': 'Vivo',
       'price': 47999,
       'category': 'Vivo',
-      'image': 'https://fdn2.gsmarena.com/vv/bigpics/vivo-x200-pro.jpg',
+      'image': 'assets/vivo-x200-pro.jpg',
       'description': 'Vivo X200 Pro with ZEISS optics, Dimensity 9400 and a massive 6000mAh silicon-carbon battery.',
       'variants': ['256GB', '512GB', '1TB'],
       'specs': ['Vivo', 'Android 15', '6.78 inch LTPO AMOLED'],
@@ -224,6 +224,27 @@ class _HomepageState extends State<Homepage> {
   List<Map<String, dynamic>> get filteredPhones {
     if (selectedCategory == 'All') return phones;
     return phones.where((p) => p['category'] == selectedCategory).toList();
+  }
+
+  // ── Helper: renders asset OR network image with fallback ──
+  Widget _phoneImage(String path, {double? width, BoxFit fit = BoxFit.contain}) {
+    final isAsset = !path.startsWith('http');
+    if (isAsset) {
+      return Image.asset(
+        path,
+        width: width,
+        fit: fit,
+        errorBuilder: (c, e, s) =>
+            Center(child: Text('📱', style: TextStyle(fontSize: 48))),
+      );
+    }
+    return Image.network(
+      path,
+      width: width,
+      fit: fit,
+      errorBuilder: (c, e, s) =>
+          Center(child: Text('📱', style: TextStyle(fontSize: 48))),
+    );
   }
 
   void _showSpecsPreview(Map<String, dynamic> phone) {
@@ -261,15 +282,16 @@ class _HomepageState extends State<Homepage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(color: _border),
+                              color: widget.isDark
+                                  ? Color(0xFF1A1A2E)
+                                  : Color(0xFFEEF2FF),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                phone['image'],
-                                fit: BoxFit.contain,
-                                errorBuilder: (c, e, s) => Center(
-                                    child: Text('📱',
-                                        style: TextStyle(fontSize: 32))),
+                              child: Padding(
+                                padding: EdgeInsets.all(4),
+                                child: _phoneImage(phone['image'],
+                                    fit: BoxFit.contain),
                               ),
                             ),
                           ),
@@ -387,14 +409,13 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: _bg,
       child: CustomScrollView(
         slivers: [
-          // Navigation Bar
           CupertinoSliverNavigationBar(
             backgroundColor: widget.isDark
                 ? Color(0xFF0A0A0F).withOpacity(0.95)
                 : Color(0xFFF0F4FF).withOpacity(0.95),
             border: null,
             largeTitle: Text(
-              'PHONE HUB',
+              'PHONE MART',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 letterSpacing: 4,
@@ -477,7 +498,18 @@ class _HomepageState extends State<Homepage> {
                         ],
                       ),
                     ),
-                    Text('📱', style: TextStyle(fontSize: 64)),
+                    // Logo in banner
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        width: 72,
+                        height: 72,
+                        fit: BoxFit.contain,
+                        errorBuilder: (c, e, s) =>
+                            Text('📱', style: TextStyle(fontSize: 64)),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -511,7 +543,8 @@ class _HomepageState extends State<Homepage> {
                         boxShadow: isSelected
                             ? [
                           BoxShadow(
-                              color: Color(0xFF2563EB).withOpacity(0.3),
+                              color:
+                              Color(0xFF2563EB).withOpacity(0.3),
                               blurRadius: 8,
                               offset: Offset(0, 3))
                         ]
@@ -520,9 +553,7 @@ class _HomepageState extends State<Homepage> {
                       child: Text(
                         cat,
                         style: TextStyle(
-                          color: isSelected
-                              ? Color(0xFFFFFFFF)
-                              : _subtext,
+                          color: isSelected ? Color(0xFFFFFFFF) : _subtext,
                           fontWeight: isSelected
                               ? FontWeight.w700
                               : FontWeight.w500,
@@ -580,7 +611,8 @@ class _HomepageState extends State<Homepage> {
           border: Border.all(color: _border, width: 1),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFF2563EB).withOpacity(widget.isDark ? 0.1 : 0.07),
+              color:
+              Color(0xFF2563EB).withOpacity(widget.isDark ? 0.1 : 0.07),
               blurRadius: 8,
               offset: Offset(0, 3),
             ),
@@ -592,26 +624,21 @@ class _HomepageState extends State<Homepage> {
             Container(
               height: 170,
               decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.vertical(top: Radius.circular(15)),
-                  color: widget.isDark
-                      ? Color(0xFF1A1A2E)
-                      : Color(0xFFEEF2FF)),
+                borderRadius:
+                BorderRadius.vertical(top: Radius.circular(15)),
+                color: widget.isDark
+                    ? Color(0xFF1A1A2E)
+                    : Color(0xFFEEF2FF),
+              ),
               child: ClipRRect(
                 borderRadius:
                 BorderRadius.vertical(top: Radius.circular(15)),
                 child: Padding(
                   padding: EdgeInsets.all(8),
-                  child: Image.network(
+                  child: _phoneImage(
                     phone['image'],
                     width: double.infinity,
                     fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: Color(0xFF2563EB).withOpacity(0.1),
-                      child: Center(
-                          child: Text('📱',
-                              style: TextStyle(fontSize: 48))),
-                    ),
                   ),
                 ),
               ),
@@ -643,7 +670,8 @@ class _HomepageState extends State<Homepage> {
                           size: 11, color: Color(0xFFFFAA00)),
                       SizedBox(width: 3),
                       Text('${phone['rating']}',
-                          style: TextStyle(fontSize: 11, color: _subtext)),
+                          style:
+                          TextStyle(fontSize: 11, color: _subtext)),
                     ],
                   ),
                   SizedBox(height: 8),
@@ -663,17 +691,13 @@ class _HomepageState extends State<Homepage> {
                           width: 28,
                           height: 28,
                           decoration: BoxDecoration(
-                            color:
-                            Color(0xFF2563EB).withOpacity(0.15),
+                            color: Color(0xFF2563EB).withOpacity(0.15),
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                                color: Color(0xFF2563EB)
-                                    .withOpacity(0.3)),
+                                color: Color(0xFF2563EB).withOpacity(0.3)),
                           ),
-                          child: Icon(
-                              CupertinoIcons.info_circle,
-                              size: 13,
-                              color: Color(0xFF2563EB)),
+                          child: Icon(CupertinoIcons.info_circle,
+                              size: 13, color: Color(0xFF2563EB)),
                         ),
                       ),
                     ],
