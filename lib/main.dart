@@ -215,9 +215,17 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       child: Center(
-                          child: Text('📱', style: TextStyle(fontSize: 38))),
+                        child: Image.asset(
+                          'assets/logo.png',
+                          width: 78,
+                          height: 78,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
+
                     SizedBox(height: 16),
+
                     Text(
                       'PHONE HUB',
                       style: TextStyle(
@@ -227,7 +235,9 @@ class _LoginPageState extends State<LoginPage> {
                         color: _text,
                       ),
                     ),
+
                     SizedBox(height: 4),
+
                     Text(
                       'Your premium phone store',
                       style: TextStyle(fontSize: 13, color: _subtext),
